@@ -1,13 +1,31 @@
 {
-  "itemGroup.examplemod": "Example Mod Tab",
-  "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item",
+  "item.morediodes.diode_white": "white diode",
+  "component.morediodes.diode_white.0": "anode",
+  "component.morediodes.diode_white.0.short": "+",
+  "component.morediodes.diode_white.1": "cathode",
+  "component.morediodes.diode_white.1.short": "-",
 
-  "examplemod.configuration.title": "Example Mod Configs",
-  "examplemod.configuration.section.examplemod.common.toml": "Example Mod Configs",
-  "examplemod.configuration.section.examplemod.common.toml.title": "Example Mod Configs",
-  "examplemod.configuration.items": "Item List",
-  "examplemod.configuration.logDirtBlock": "Log Dirt Block",
-  "examplemod.configuration.magicNumberIntroduction": "Magic Number Text",
-  "examplemod.configuration.magicNumber": "Magic Number"
+  "item.morediodes.diode_blue": "blue diode",
+  "component.morediodes.diode_blue.0": "anode",
+  "component.morediodes.diode_blue.0.short": "+",
+  "component.morediodes.diode_blue.1": "cathode",
+  "component.morediodes.diode_blue.1.short": "-",
+
+  "item.morediodes.diode_yellow": "yellow diode",
+  "component.morediodes.diode_yellow.0": "anode",
+  "component.morediodes.diode_yellow.0.short": "+",
+  "component.morediodes.diode_yellow.1": "cathode",
+  "component.morediodes.diode_yellow.1.short": "-",
+
+  "item.morediodes.diode_red": "red diode",
+  "component.morediodes.diode_red.0": "anode",
+  "component.morediodes.diode_red.0.short": "+",
+  "component.morediodes.diode_red.1": "cathode",
+  "component.morediodes.diode_red.1.short": "-",
+
+  "item.morediodes.diode_green": "green diode",
+  "component.morediodes.diode_green.0": "anode",
+  "component.morediodes.diode_green.0.short": "+",
+  "component.morediodes.diode_green.1": "cathode",
+  "component.morediodes.diode_green.1.short": "-"
 }

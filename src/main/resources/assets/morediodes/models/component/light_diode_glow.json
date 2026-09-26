@@ -1,0 +1,23 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "morediodes:block/components/light_diode_glow",
+		"particle": "morediodes:block/components/light_diode_glow"
+	},
+	"elements": [
+		{
+			"from": [-0.25, 0.75, -0.25],
+			"to": [2.25, 3.25, 2.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-0.25, 0.75, -0.25]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 2], "texture": "#0"},
+				"east": {"uv": [0, 2, 2, 4], "texture": "#0"},
+				"south": {"uv": [2, 0, 4, 2], "texture": "#0"},
+				"west": {"uv": [2, 2, 4, 4], "texture": "#0"},
+				"up": {"uv": [0, 4, 2, 6], "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 2], "texture": "#0"}
+			}
+		}
+	]
+}
