@@ -17,16 +17,16 @@ displayName="${mod_name}" #mandatory
 
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+displayURL="https://github.com/Sebz102030/MoreDiodes" #optional
 
-#logoFile="examplemod.png" #optional
+logoFile="more_diodes_logo.png" #optional
 
 #credits="" #optional
 
 #authors=""
 
 description='''
-Example mod description.
+this mod adds diodes to give more ways to use circuit board
 '''
 
 #[[mixins]]
@@ -46,6 +46,13 @@ Example mod description.
     modId="minecraft"
     type="required"
     versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="powergrid"
+    type="required"
+    versionRange="6.0.0"
     ordering="NONE"
     side="BOTH"
 

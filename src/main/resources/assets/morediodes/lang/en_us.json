@@ -27,5 +27,12 @@
   "component.morediodes.diode_green.0": "anode",
   "component.morediodes.diode_green.0.short": "+",
   "component.morediodes.diode_green.1": "cathode",
-  "component.morediodes.diode_green.1.short": "-"
+  "component.morediodes.diode_green.1.short": "-",
+  
+  "item.morediodes.diode_zener":"zener diode",
+  "component.morediodes.diode_zener.0":"anode",
+  "component.morediodes.diode_zener.0.short":"+",
+  "component.morediodes.diode_zener.1":"cathode",
+  "component.morediodes.diode_zener.1.short":"-",
+  "morediodes.component.property.reverse_voltage": "Reverse voltage [V]"
 }

@@ -29,13 +29,16 @@ public class ComponentDiodeWhite extends OrientableComponent implements IRendere
 
     // ---- Electrical limits ----------------------------------------------------------------
     /** Maximum current (A). Heat from this current is exactly what the thermal unit can dissipate. */
-    public static final float MAX_CURRENT = 0.2f;
-    /** Current at which the junction drops exactly the enum voltage = full brightness (A). */
-    public static final double RATED_CURRENT = 0.02;
+    public static final float MAX_CURRENT = 0.02f;
+    /** Current at which the junction drops exactly the enum voltage = full brightness (A). Keep well below MAX_CURRENT. */
+    public static final double RATED_CURRENT = 0.005;
     /** Thermal unit overheats (LED burns out) at this temperature (C). */
     public static final float OVERHEAT_TEMPERATURE = 150f;
     /** Voltage window (V) below the enum voltage over which the LED ramps from dark to full. */
     public static final float GLOW_WINDOW = 0.25f;
+
+    /** Below this forward current the LED is considered off (A). */
+    public static final double MIN_GLOW_CURRENT = 0.0002;
 
     private static final double SERIES_RESISTANCE = 0.5;
     private static final double IDEALITY = 2.0;
@@ -118,8 +121,9 @@ public class ComponentDiodeWhite extends OrientableComponent implements IRendere
                 .addHeatSource(wire)
                 .setThermalMass(0.01f)
                 .setMaxPower(maxPower, OVERHEAT_TEMPERATURE - 5f)
-                .setOverheatTemperature(OVERHEAT_TEMPERATURE)
-                .withTemperatureCallback(wire::setTemperatureCelsius);
+                .setOverheatTemperature(OVERHEAT_TEMPERATURE);
+        // Deliberately no temperature callback into the junction: PowerGrid's PN model would shift
+        // the forward voltage with temperature, so white/blue would slowly 'warm up' into brightness.
     }
 
     @Override
@@ -134,10 +138,12 @@ public class ComponentDiodeWhite extends OrientableComponent implements IRendere
             return;
         var wire = placed.wires.get(0);
 
-        // Wire removed by the thermal unit = burnt out -> dark.
-        double v = wire.getNetwork() == null ? 0.0 : wire.potentialDifference();
-        if (wire.getNetwork() != null && !wire.isConverged())
-            return;
+        // Dark when burnt (wire removed -> no network), disconnected, or no real forward current.
+        // Not gated on isConverged(): high-voltage diodes take several ticks to converge and a
+        // disconnected network never reports converged, which left stale brightness behind.
+        double v = 0.0;
+        if (wire.getNetwork() != null && wire.current() > MIN_GLOW_CURRENT)
+            v = wire.potentialDifference();
 
         // Brightness from junction voltage: 0 at (Vf - window), 1 at Vf, stays 1 above it.
         double vf = colour.RunVoltage;

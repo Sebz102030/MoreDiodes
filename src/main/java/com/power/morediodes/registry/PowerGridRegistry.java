@@ -1,6 +1,7 @@
 package com.power.morediodes.registry;
 
 import com.power.morediodes.components.ComponentDiodeWhite;
+import com.power.morediodes.components.ComponentZenerDiode;
 import com.power.morediodes.MoreDiodes;
 
 import org.patryk3211.powergrid.circuits.schematic.ComponentFootprint;
@@ -19,6 +20,7 @@ class PowerGridRegistry {
     public static final ResourceLocation YELLOW_DIODE_ID = id("diode_yellow");
     public static final ResourceLocation RED_DIODE_ID = id("diode_red");
     public static final ResourceLocation GREEN_DIODE_ID = id("diode_green");
+    public static final ResourceLocation ZENER_DIODE_ID = id("diode_zener");
 
     private static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MoreDiodes.MODID, path);
@@ -33,6 +35,13 @@ class PowerGridRegistry {
             .withItem().withOutline().build();
         return new ComponentDiodeWhite(footprint, color);}
     
+    private static ComponentZenerDiode buildZener() {
+        var footprint = new ComponentFootprint.Builder(3, 1, "component."+MoreDiodes.MODID+".diode_zener", null)
+            .addPad(0, 0, ComponentZenerDiode.PIN_ANODE, "ANODE", "ANODE")
+            .addPad(2, 0, ComponentZenerDiode.PIN_KATHODE, "KATHODE", "KATHODE")
+            .withItem().withOutline().build();
+        return new ComponentZenerDiode(footprint);}
+
     @SubscribeEvent
     public static void onRegister(RegisterEvent event) {
         if (event.getRegistryKey().equals(ComponentRegistry.REGISTRY_KEY)){
@@ -41,7 +50,8 @@ class PowerGridRegistry {
             event.register(ComponentRegistry.REGISTRY_KEY, YELLOW_DIODE_ID, () -> buildDiodeWhite(ComponentDiodeWhite.DiodeColour.yellow, "yellow"));
             event.register(ComponentRegistry.REGISTRY_KEY, RED_DIODE_ID, () -> buildDiodeWhite(ComponentDiodeWhite.DiodeColour.red, "red"));
             event.register(ComponentRegistry.REGISTRY_KEY, GREEN_DIODE_ID, () -> buildDiodeWhite(ComponentDiodeWhite.DiodeColour.green, "green"));
-            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 5);
+            event.register(ComponentRegistry.REGISTRY_KEY, ZENER_DIODE_ID, PowerGridRegistry::buildZener);
+            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 6);
         }
     }
 }

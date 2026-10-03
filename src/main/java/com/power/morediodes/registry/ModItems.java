@@ -14,4 +14,5 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> DIODE_YELLOW = ITEMS.registerSimpleItem("diode_yellow", new Item.Properties() );
     public static final DeferredHolder<Item, Item> DIODE_RED = ITEMS.registerSimpleItem("diode_red", new Item.Properties() );
     public static final DeferredHolder<Item, Item> DIODE_GREEN = ITEMS.registerSimpleItem("diode_green", new Item.Properties() );
+    public static final DeferredHolder<Item, Item> DIODE_ZENER = ITEMS.registerSimpleItem("diode_zener", new Item.Properties() );
 }
