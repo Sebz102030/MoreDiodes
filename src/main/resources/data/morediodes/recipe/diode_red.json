@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ab",
+    "cd"
+  ],
+  "key": {
+    "a": {
+      "item": "powergrid:zinc_sheet"
+    },
+    "b": {
+      "item": "minecraft:red_dye"
+    },
+    "c": {
+      "item": "powergrid:pins"
+    },
+    "d": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "id": "morediodes:diode_red",
+    "count": 2
+  }
+}

@@ -93,6 +93,9 @@ dependencies {
 
     implementation "curse.maven:architectury-419699:8492726"
     localRuntime "curse.maven:architectury-419699:8492726"
+
+    implementation "curse.maven:jei-238222:8792638"
+    localRuntime "curse.maven:jei-238222:8792638"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

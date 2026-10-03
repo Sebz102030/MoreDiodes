@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "b ",
+    "ca"
+  ],
+  "key": {
+    "a": {
+      "item": "powergrid:zinc_sheet"
+    },
+    "b": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "powergrid:pins"
+    }
+  },
+  "result": {
+    "id": "morediodes:diode_zener",
+    "count": 1
+  }
+}
