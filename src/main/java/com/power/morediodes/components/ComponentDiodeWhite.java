@@ -22,8 +22,16 @@ import org.patryk3211.powergrid.circuits.schematic.ComponentFootprint;
 import org.patryk3211.powergrid.circuits.schematic.PlacedComponent;
 import org.patryk3211.powergrid.circuits.thermal.ThermalBuilder;
 import org.patryk3211.powergrid.electricity.sim.special.PNJunctionWire;
+import org.patryk3211.powergrid.circuits.components.IComponentGoggleInformation;
+import org.patryk3211.powergrid.utility.Lang;
+import net.minecraft.network.chat.Component;
 
-public class ComponentDiodeWhite extends OrientableComponent implements IRenderedComponent {
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+
+import java.util.List;
+
+public class ComponentDiodeWhite extends OrientableComponent implements IRenderedComponent, IComponentGoggleInformation, IInteractableComponent {
     public static final int PIN_ANODE   = 0;
     public static final int PIN_KATHODE = 1;
 
@@ -89,7 +97,7 @@ public class ComponentDiodeWhite extends OrientableComponent implements IRendere
     @Override
     protected void addProperties(ImmutableCollection.Builder<ComponentProperty<?>> properties) {
         super.addProperties(properties);
-        properties.add(current(MAX_CURRENT), BRIGHTNESS);
+        properties.add(LABEL, current(MAX_CURRENT), BRIGHTNESS);
     }
 
     public VoxelShape getShape(@NotNull PlacedComponent placed) {
@@ -199,4 +207,20 @@ public class ComponentDiodeWhite extends OrientableComponent implements IRendere
                 .translateBack(center, center, center)
                 .renderInto(ms, bufferSource.getBuffer(RenderTypes.additive()));
     }
+
+    @Override
+    public boolean addToGoggleTooltip(@NotNull PlacedComponent placed, @NotNull List<Component> tooltip,
+                                       boolean isPlayerSneaking) {
+        if (placed.has(LABEL)) {
+            var label = placed.get(LABEL);
+            if (label.isEmpty()) {
+                return false;
+            } else {
+                Lang.text(label).forGoggles(tooltip);
+            }
+        }
+        return false;
+    }
+
+    @Override public InteractionResult use( CircuitBoardBlockEntity be, PlacedComponent placed, Player player) { return InteractionResult.PASS; }
 }

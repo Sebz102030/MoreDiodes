@@ -21,19 +21,9 @@ displayURL="https://github.com/Sebz102030/MoreDiodes" #optional
 
 logoFile="more_diodes_logo.png" #optional
 
-#credits="" #optional
-
-#authors=""
-
 description='''
 this mod adds diodes to give more ways to use circuit board
 '''
-
-#[[mixins]]
-#config="${mod_id}.mixins.json"
-
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]] #optional
     modId="neoforge" #mandatory
@@ -52,9 +42,7 @@ this mod adds diodes to give more ways to use circuit board
 [[dependencies.${mod_id}]]
     modId="powergrid"
     type="required"
-    versionRange="6.0.0"
-    ordering="NONE"
+    versionRange="[0.6.0,)"
+    ordering="AFTER"
     side="BOTH"
 
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
