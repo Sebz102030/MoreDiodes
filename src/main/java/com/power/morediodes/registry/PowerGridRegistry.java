@@ -2,6 +2,9 @@ package com.power.morediodes.registry;
 
 import com.power.morediodes.components.ComponentDiodeWhite;
 import com.power.morediodes.components.ComponentZenerDiode;
+import com.power.morediodes.components.SevenSegmentDisplayComponent;
+import com.power.morediodes.components.SimpleLedMatrixComponent;
+import com.power.morediodes.components.LedMatrixComponent;
 import com.power.morediodes.MoreDiodes;
 
 import org.patryk3211.powergrid.circuits.schematic.ComponentFootprint;
@@ -21,6 +24,12 @@ class PowerGridRegistry {
     public static final ResourceLocation RED_DIODE_ID = id("diode_red");
     public static final ResourceLocation GREEN_DIODE_ID = id("diode_green");
     public static final ResourceLocation ZENER_DIODE_ID = id("diode_zener");
+
+    public static final ResourceLocation LED_MATRIX_ID = id("led_matrix");
+    public static final ResourceLocation LED_MATRIX_ADVANCED_ID = id("led_matrix_advanced");
+    public static final ResourceLocation SEVEN_SEGMENT_ANODE_ID = id("seven_segment_anode");
+    public static final ResourceLocation SEVEN_SEGMENT_CATHODE_ID = id("seven_segment_cathode");
+
 
     private static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MoreDiodes.MODID, path);
@@ -42,6 +51,55 @@ class PowerGridRegistry {
             .withItem().withOutline().build();
         return new ComponentZenerDiode(footprint);}
 
+    private static ComponentFootprint sevenSegmentFootprint(String idPath) {
+        String base = "component." + MoreDiodes.MODID + "." + idPath;
+        return new ComponentFootprint.Builder(5, 7, base, null)
+                .addPad(0, 0, 6, "G", "g")
+                .addPad(1, 0, 5, "F", "f")
+                .addPad(2, 0, SevenSegmentDisplayComponent.PIN_COM_WEST, "COM", "COM")
+                .addPad(3, 0, 0, "A", "a")
+                .addPad(4, 0, 1, "B", "b")
+                .addPad(0, 6, 4, "E", "e")
+                .addPad(1, 6, 3, "D", "d")
+                .addPad(2, 6, SevenSegmentDisplayComponent.PIN_COM_EAST, "COM", "COM")
+                .addPad(3, 6, 2, "C", "c")
+                .addPad(4, 6, SevenSegmentDisplayComponent.PIN_DP, "DP", "dp")
+                .withItem()
+                .withOutline()
+                .build();
+    }
+
+    private static SevenSegmentDisplayComponent buildSevenSegmentDisplayCathode() {
+        return new SevenSegmentDisplayComponent(sevenSegmentFootprint("seven_segment_cathode"), false);
+    }
+
+    private static SevenSegmentDisplayComponent buildSevenSegmentDisplayAnode() {
+        return new SevenSegmentDisplayComponent(sevenSegmentFootprint("seven_segment_anode"), true);
+    }
+
+    private static LedMatrixComponent buildLedMatrix() {
+        String base = "component." + MoreDiodes.MODID + ".led_matrix_advanced";
+        var builder = new ComponentFootprint.Builder(5, 5, base, null);
+        for (int i = 0; i < 5; i++) {
+            builder.addPad(i, 0, LedMatrixComponent.PIN_CATHODE_0 + i, "C" + (i + 1), "c" + (i + 1));
+            builder.addPad(i, 4, LedMatrixComponent.PIN_ANODE_0 + i, "A" + (i + 1), "a" + (i + 1));
+        }
+        builder.addPad(1, 2, LedMatrixComponent.PIN_VCC, "VCC", "VCC")
+                .addPad(2, 2, LedMatrixComponent.PIN_CLEAR, "CLEAR", "CLR")
+                .addPad(3, 2, LedMatrixComponent.PIN_GND, "GND", "GND");
+        return new LedMatrixComponent(builder.withItem().withOutline().build());
+    }
+
+    private static SimpleLedMatrixComponent buildSimpleLedMatrix() {
+        String base = "component." + MoreDiodes.MODID + ".led_matrix";
+        var builder = new ComponentFootprint.Builder(5, 5, base, null);
+        for (int i = 0; i < 5; i++) {
+            builder.addPad(i, 0, LedMatrixComponent.PIN_CATHODE_0 + i, "C" + (i + 1), "c" + (i + 1));
+            builder.addPad(i, 4, LedMatrixComponent.PIN_ANODE_0 + i, "A" + (i + 1), "a" + (i + 1));
+        }
+        return new SimpleLedMatrixComponent(builder.withItem().withOutline().build());
+    }
+
     @SubscribeEvent
     public static void onRegister(RegisterEvent event) {
         if (event.getRegistryKey().equals(ComponentRegistry.REGISTRY_KEY)){
@@ -51,7 +109,12 @@ class PowerGridRegistry {
             event.register(ComponentRegistry.REGISTRY_KEY, RED_DIODE_ID, () -> buildDiodeWhite(ComponentDiodeWhite.DiodeColour.red, "red"));
             event.register(ComponentRegistry.REGISTRY_KEY, GREEN_DIODE_ID, () -> buildDiodeWhite(ComponentDiodeWhite.DiodeColour.green, "green"));
             event.register(ComponentRegistry.REGISTRY_KEY, ZENER_DIODE_ID, PowerGridRegistry::buildZener);
-            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 6);
+
+            event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_CATHODE_ID, PowerGridRegistry::buildSevenSegmentDisplayCathode);
+            event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_ANODE_ID, PowerGridRegistry::buildSevenSegmentDisplayAnode);
+            event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ID, PowerGridRegistry::buildSimpleLedMatrix);
+            event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ADVANCED_ID, PowerGridRegistry::buildLedMatrix);
+            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 10);
         }
     }
 }

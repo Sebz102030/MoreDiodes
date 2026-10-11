@@ -1,6 +1,8 @@
 package com.power.morediodes;
 
 import com.power.morediodes.registry.ModItems;
+import com.power.morediodes.registry.ConfigFile;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.patryk3211.powergrid.PowerGrid;
 import net.minecraft.resources.ResourceLocation;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.neoforged.fml.config.ModConfig;
 
 @Mod(MoreDiodes.MODID)
 public class MoreDiodes {
@@ -27,6 +30,8 @@ public class MoreDiodes {
             ResourceKey.create(Registries.CREATIVE_MODE_TAB, PowerGrid.asResource("main"));
 
     public MoreDiodes(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, ConfigFile.SPEC,
+                MODID + "-common.toml");
         ModItems.ITEMS.register(modEventBus);
 
         // THIS is the line that actually wires items into PowerGrid's tab -
