@@ -16,6 +16,7 @@ import org.patryk3211.powergrid.PowerGrid;
 import net.minecraft.resources.ResourceLocation;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.neoforged.fml.config.ModConfig;
+import com.power.morediodes.registry.ModFluids;
 
 @Mod(MoreDiodes.MODID)
 public class MoreDiodes {
@@ -33,6 +34,11 @@ public class MoreDiodes {
         modContainer.registerConfig(ModConfig.Type.COMMON, ConfigFile.SPEC,
                 MODID + "-common.toml");
         ModItems.ITEMS.register(modEventBus);
+        //2 mines for registering fluids
+        ModFluids.FLUID_TYPES.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+        ModFluids.ITEMS.register(modEventBus);
+        modEventBus.addListener(ModFluids::registerCapabilities);
 
         // THIS is the line that actually wires items into PowerGrid's tab -
         // without it, ModItems being registered has no effect on the tab.
