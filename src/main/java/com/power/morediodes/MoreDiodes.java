@@ -34,11 +34,7 @@ public class MoreDiodes {
         modContainer.registerConfig(ModConfig.Type.COMMON, ConfigFile.SPEC,
                 MODID + "-common.toml");
         ModItems.ITEMS.register(modEventBus);
-        //2 mines for registering fluids
-        ModFluids.FLUID_TYPES.register(modEventBus);
-        ModFluids.FLUIDS.register(modEventBus);
-        ModFluids.ITEMS.register(modEventBus);
-        modEventBus.addListener(ModFluids::registerCapabilities);
+        ModFluids.register(modEventBus); // fluid types, fluids, buckets/bottles and their capabilities
 
         // THIS is the line that actually wires items into PowerGrid's tab -
         // without it, ModItems being registered has no effect on the tab.
@@ -56,6 +52,9 @@ public class MoreDiodes {
             event.accept(entry.get());
             //event.accept(ModItems.DIODE_WHITW.get());
         }
+        // Fluid buckets / bottles (remove this loop if they should not be in the creative tab).
+        for (var entry : ModFluids.ITEMS.getEntries())
+            event.accept(entry.get());
     }
     //LOGGER.info("More diodes initialized {}", ResourceLocation.fromNamespaceAndPath(MODID, "component/light_diode_glow_dyed"));
 

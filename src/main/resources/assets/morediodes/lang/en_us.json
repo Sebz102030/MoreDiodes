@@ -132,5 +132,8 @@
   "message.morediodes.diodes_burnt": "%s/%s diodes burnt out",
   "message.morediodes.diodes_burnt_repair": "%s/%s diodes burnt out - sneak + right-click with empty hands to repair",
   "message.morediodes.diode_repaired": "Repaired %s diode",
-  "message.morediodes.diodes_repaired": "Repaired %s diodes"
+  "message.morediodes.diodes_repaired": "Repaired %s diodes",
+  "fluid_type.morediodes.placeholder": "Placeholder Fluid",
+  "item.morediodes.placeholder_bucket": "Placeholder Bucket",
+  "item.morediodes.placeholder_bottle": "Placeholder Bottle"
 }
