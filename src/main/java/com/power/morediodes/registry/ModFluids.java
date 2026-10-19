@@ -46,9 +46,9 @@ public final class ModFluids {
     private static final List<FluidEntry> ENTRIES = new ArrayList<>();
 
     // ---- declare fluids here ----
-    public static final FluidEntry PLACEHOLDER = fluid("placeholder")
-            .bucketable("placeholder_bucket")
-            .bottle("placeholder_bottle", 250, 4).spread(3, 1000); // 250 mB per bottle, stacks to 4
+    public static final FluidEntry PLACEHOLDER = fluid("hardening_rasin")
+            .bucketable("rasin_bucket").spread(3, 300);
+            ;//.bottle("placeholder_bottle", 250, 4).spread(3, 1000); // 250 mB per bottle, stacks to 4
 
     /** Registers a fluid (type + source + flowing); chain .bucketable(id) / .bottle(id) / .spread(length, temperature). */
     public static FluidEntry fluid(String id) {

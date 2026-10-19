@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.neoforged.fml.config.ModConfig;
 import com.power.morediodes.registry.ModFluids;
+import com.power.morediodes.registry.ModRecipeTypes;
 
 @Mod(MoreDiodes.MODID)
 public class MoreDiodes {
@@ -34,7 +35,9 @@ public class MoreDiodes {
         modContainer.registerConfig(ModConfig.Type.COMMON, ConfigFile.SPEC,
                 MODID + "-common.toml");
         ModItems.ITEMS.register(modEventBus);
+        ModItems.HIDDEN_ITEMS.register(modEventBus);
         ModFluids.register(modEventBus); // fluid types, fluids, buckets/bottles and their capabilities
+        ModRecipeTypes.register(modEventBus); // fan-driven sequenced assembly steps (blasting / smoking / haunting)
 
         // THIS is the line that actually wires items into PowerGrid's tab -
         // without it, ModItems being registered has no effect on the tab.
