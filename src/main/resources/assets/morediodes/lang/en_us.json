@@ -135,11 +135,5 @@
   "message.morediodes.diodes_repaired": "Repaired %s diodes",
   "fluid_type.morediodes.placeholder": "Placeholder Fluid",
   "item.morediodes.placeholder_bucket": "Placeholder Bucket",
-  "item.morediodes.placeholder_bottle": "Placeholder Bottle",
-  "morediodes.recipe.assembly.blasting": "Bulk Blasting",
-  "morediodes.recipe.assembly.blasting.timed": "Bulk Blasting (%s s)",
-  "morediodes.recipe.assembly.smoking": "Bulk Smoking",
-  "morediodes.recipe.assembly.smoking.timed": "Bulk Smoking (%s s)",
-  "morediodes.recipe.assembly.haunting": "Bulk Haunting",
-  "morediodes.recipe.assembly.haunting.timed": "Bulk Haunting (%s s)"
+  "item.morediodes.placeholder_bottle": "Placeholder Bottle"
 }

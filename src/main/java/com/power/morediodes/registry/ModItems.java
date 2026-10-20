@@ -24,7 +24,7 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_ANODE = ITEMS.registerSimpleItem("seven_segment_anode", new Item.Properties());
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_CATHODE = ITEMS.registerSimpleItem("seven_segment_cathode", new Item.Properties());
 
-    public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX = HIDDEN_ITEMS.register("incomplete_matrix", ()-> new IncompletePlaceholder(new Item.Properties().fireResistant()));
+    public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX = HIDDEN_ITEMS.register("incomplete_matrix", ()-> new IncompletePlaceholder(new Item.Properties()));
 
     private ModItems() {
     }
