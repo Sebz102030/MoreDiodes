@@ -16,6 +16,11 @@ public final class ConfigFile {
     public static final ModConfigSpec.DoubleValue MATRIX_DIODE_CURRENT_MA;
     public static final ModConfigSpec.DoubleValue MATRIX_MAX_SUPPLY_VOLTAGE;
 
+    // --- LED step indicator (10 LED bar) ---
+    public static final ModConfigSpec.DoubleValue BAR_DIODE_ACTIVATION_VOLTAGE;
+    public static final ModConfigSpec.DoubleValue BAR_DIODE_VOLTAGE;
+    public static final ModConfigSpec.DoubleValue BAR_DIODE_CURRENT_MA;
+
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -69,6 +74,31 @@ public final class ConfigFile {
                         " Default: 6.0",
                         " Range: 1.0 ~ 100.0")
                 .defineInRange("matrixMaxSupplyVoltage", 6.0D, 1.0D, 100.0D);
+
+        builder.pop();
+        builder.comment("", "LED step indicator (10 LED bar) settings")
+                .push("ledStepIndicator");
+
+        BAR_DIODE_ACTIVATION_VOLTAGE = builder
+                .comment("Activation voltage (V) of a bar LED: the voltage across it at its rated current,",
+                        "so the LED starts lighting around this voltage.",
+                        " Default: 2.0",
+                        " Range: 0.5 ~ 12.0")
+                .defineInRange("barDiodeActivationVoltage", 2.0D, 0.5D, 12.0D);
+
+        BAR_DIODE_VOLTAGE = builder
+                .comment("", "MAX voltage (V) across a bar LED. An LED never burns at or below this voltage and burns",
+                        "just above it (through Power Grid's thermal simulation).",
+                        "Should be at or above barDiodeActivationVoltage (it is raised to it if lower).",
+                        " Default: 5.0",
+                        " Range: 0.5 ~ 12.0")
+                .defineInRange("barDiodeVoltage", 5.0D, 0.5D, 12.0D);
+
+        BAR_DIODE_CURRENT_MA = builder
+                .comment("", "Current (mA) drawn by a lit bar LED at the activation voltage.",
+                        " Default: 20.0",
+                        " Range: 1.0 ~ 500.0")
+                .defineInRange("barDiodeCurrentMilliamps", 20.0D, 1.0D, 500.0D);
 
         builder.pop();
         SPEC = builder.build();

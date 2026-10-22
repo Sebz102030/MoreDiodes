@@ -1,0 +1,117 @@
+{
+  "comment": "Glow layout. Positions are in pixels (16 = 1 block) in the component's default orientation: x = east, z = south, origin = north-west corner of the footprint. 'from'/'to' are [x, z] on the top of the body. 'y' = height of the glow plane in pixels (element 'y' overrides it), 'halo' = soft border width in pixels (0 = none). The ORDER of 'elements' matters: it is the segment / diode index used by the mod.",
+  "y": 2.03,
+  "halo": 0.25,
+  "elements": [
+    {
+      "name": "LED 1",
+      "from": [
+        0.25,
+        0.25
+      ],
+      "to": [
+        0.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 2",
+      "from": [
+        1.25,
+        0.25
+      ],
+      "to": [
+        1.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 3",
+      "from": [
+        2.25,
+        0.25
+      ],
+      "to": [
+        2.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 4",
+      "from": [
+        3.25,
+        0.25
+      ],
+      "to": [
+        3.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 5",
+      "from": [
+        4.25,
+        0.25
+      ],
+      "to": [
+        4.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 6",
+      "from": [
+        5.25,
+        0.25
+      ],
+      "to": [
+        5.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 7",
+      "from": [
+        6.25,
+        0.25
+      ],
+      "to": [
+        6.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 8",
+      "from": [
+        7.25,
+        0.25
+      ],
+      "to": [
+        7.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 9",
+      "from": [
+        8.25,
+        0.25
+      ],
+      "to": [
+        8.75,
+        3.75
+      ]
+    },
+    {
+      "name": "LED 10",
+      "from": [
+        9.25,
+        0.25
+      ],
+      "to": [
+        9.75,
+        3.75
+      ]
+    }
+  ]
+}

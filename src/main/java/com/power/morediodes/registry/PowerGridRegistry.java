@@ -3,6 +3,7 @@ package com.power.morediodes.registry;
 import com.power.morediodes.components.ComponentDiodeWhite;
 import com.power.morediodes.components.ComponentZenerDiode;
 import com.power.morediodes.components.SevenSegmentDisplayComponent;
+import com.power.morediodes.components.LedStepIndicatorComponent;
 import com.power.morediodes.components.SimpleLedMatrixComponent;
 import com.power.morediodes.components.LedMatrixComponent;
 import com.power.morediodes.MoreDiodes;
@@ -27,6 +28,7 @@ class PowerGridRegistry {
 
     public static final ResourceLocation LED_MATRIX_ID = id("led_matrix");
     public static final ResourceLocation LED_MATRIX_ADVANCED_ID = id("led_matrix_advanced");
+    public static final ResourceLocation LED_STEP_INDICATOR_ID = id("led_step_indicator");
     public static final ResourceLocation SEVEN_SEGMENT_ANODE_ID = id("seven_segment_anode");
     public static final ResourceLocation SEVEN_SEGMENT_CATHODE_ID = id("seven_segment_cathode");
 
@@ -100,6 +102,17 @@ class PowerGridRegistry {
         return new SimpleLedMatrixComponent(builder.withItem().withOutline().build());
     }
 
+    private static LedStepIndicatorComponent buildLedStepIndicator() {
+        String base = "component." + MoreDiodes.MODID + ".led_step_indicator";
+        var builder = new ComponentFootprint.Builder(LedStepIndicatorComponent.BASE_WIDTH,
+                LedStepIndicatorComponent.BASE_HEIGHT, base, null);
+        for (int i = 0; i < LedStepIndicatorComponent.LEDS; i++) {
+            builder.addPad(i, 0, LedStepIndicatorComponent.PIN_ANODE_0 + i, "A" + (i + 1), "a" + (i + 1));
+            builder.addPad(i, 3, LedStepIndicatorComponent.PIN_CATHODE_0 + i, "C" + (i + 1), "c" + (i + 1));
+        }
+        return new LedStepIndicatorComponent(builder.withItem().withOutline().build());
+    }
+
     @SubscribeEvent
     public static void onRegister(RegisterEvent event) {
         if (event.getRegistryKey().equals(ComponentRegistry.REGISTRY_KEY)){
@@ -114,7 +127,8 @@ class PowerGridRegistry {
             event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_ANODE_ID, PowerGridRegistry::buildSevenSegmentDisplayAnode);
             event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ID, PowerGridRegistry::buildSimpleLedMatrix);
             event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ADVANCED_ID, PowerGridRegistry::buildLedMatrix);
-            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 10);
+            event.register(ComponentRegistry.REGISTRY_KEY, LED_STEP_INDICATOR_ID, PowerGridRegistry::buildLedStepIndicator);
+            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 11);
         }
     }
 }

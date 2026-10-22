@@ -26,6 +26,8 @@ public final class ModItems {
 
     public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX = HIDDEN_ITEMS.register("incomplete_matrix", ()-> new IncompletePlaceholder(new Item.Properties()));
 
+    public static final DeferredHolder<Item, Item> LED_STEP_INDICATOR = ITEMS.registerSimpleItem("led_step_indicator", new Item.Properties());
+
     private ModItems() {
     }
 }

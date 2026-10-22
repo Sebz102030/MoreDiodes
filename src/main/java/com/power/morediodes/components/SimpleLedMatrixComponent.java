@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import com.power.morediodes.components.functions.GlowLayout;
 import com.power.morediodes.components.functions.ModLang;
 import com.power.morediodes.registry.ConfigFile;
 import org.jetbrains.annotations.NotNull;
@@ -192,7 +193,7 @@ public class SimpleLedMatrixComponent extends OrientableComponent
         int state = placed.get(STATE);
         if (state != 0)
             LedMatrixComponent.renderCells(ms, bufferSource, placed.get(ORIENTATION), state,
-                    placed.get(LedMatrixComponent.COLOR));
+                    placed.get(LedMatrixComponent.COLOR), GlowLayout.LED_MATRIX);
     }
 
     @Override

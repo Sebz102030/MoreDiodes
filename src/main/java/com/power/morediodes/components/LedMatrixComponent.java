@@ -2,14 +2,14 @@ package com.power.morediodes.components;
 
 import com.google.common.collect.ImmutableCollection;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.power.morediodes.MoreDiodes;
+import com.power.morediodes.components.functions.GlowLayout;
 import com.power.morediodes.components.functions.ModLang;
 import com.power.morediodes.registry.ConfigFile;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.InteractionResult;
@@ -17,8 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.patryk3211.powergrid.circuits.circuitboard.CircuitBoardBlockEntity;
 import org.patryk3211.powergrid.circuits.circuitboard.ComponentCircuitBuilder;
 import org.patryk3211.powergrid.circuits.components.IComponentGoggleInformation;
@@ -300,14 +298,15 @@ public class LedMatrixComponent extends OrientableComponent
         if (state == 0)
             return;
 
-        renderCells(ms, bufferSource, placed.get(ORIENTATION), state, placed.get(COLOR));
+        renderCells(ms, bufferSource, placed.get(ORIENTATION), state, placed.get(COLOR), GlowLayout.LED_MATRIX_ADVANCED);
     }
 
-    /** Draws the lit LED dots of a 5x5 matrix; bit = row * 5 + column. Shared with the simple matrix. */
+    /**
+     * Draws the lit LED dots of a 5x5 matrix; bit = row * 5 + column. Shared with the simple matrix. The dot
+     * positions come from the given glow layout file (assets/morediodes/glow/), so a resource pack can move them.
+     */
     static void renderCells(PoseStack ms, MultiBufferSource bufferSource, Orientation orientation, int state,
-                            DyeColor color) {
-        VertexConsumer buffer = bufferSource.getBuffer(RenderType.lightning());
-
+                            DyeColor color, ResourceLocation layout) {
         // Dye colour like the Power Grid bulb, brightened because the dots are drawn emissive
         // (RED comes out as a bright red, about 255/67/55).
         int dye = color.getTextureDiffuseColor();
@@ -315,45 +314,8 @@ public class LedMatrixComponent extends OrientableComponent
         int g = Mth.clamp((int) (((dye >> 8) & 0xFF) * LED_BRIGHTEN), 0, 255);
         int b = Mth.clamp((int) ((dye & 0xFF) * LED_BRIGHTEN), 0, 255);
 
-        // Same transform Power Grid applies to the baked model (the footprint is square).
-        float size = SIZE / 16f;
-        ms.pushPose();
-        switch (orientation) {
-            case DOWN -> ms.translate(size, 0, 0);
-            case LEFT -> ms.translate(size, 0, size);
-            case UP -> ms.translate(0, 0, size);
-            default -> {
-            }
-        }
-        ms.mulPose(new Quaternionf().rotationY(orientation.ordinal() * (float) Math.PI * 0.5f));
-        Matrix4f pose = ms.last().pose();
-
-        float y = 2.03f / 16f; // just above the 2 px high body
-        for (int i = 0; i < DIODES; i++) {
-            if ((state & (1 << i)) == 0)
-                continue;
-            int row = i / SIZE, col = i % SIZE;
-            // The LED dot is the middle half of its 1 px cell, like the texture.
-            float x0 = (col + 0.25f) / 16f, x1 = (col + 0.75f) / 16f;
-            float z0 = (row + 0.25f) / 16f, z1 = (row + 0.75f) / 16f;
-            quad(buffer, pose, x0, x1, y, z0, z1, r, g, b, 255);
-            float h = 1 / 64f;
-            quad(buffer, pose, x0 - h, x1 + h, y - 0.0005f, z0 - h, z1 + h, r * 3 / 4, g * 3 / 4, b * 3 / 4, 64);
-        }
-        ms.popPose();
-    }
-
-    private static void quad(VertexConsumer b, Matrix4f pose, float x0, float x1, float y, float z0, float z1,
-                              int r, int g, int bl, int a) {
-        b.addVertex(pose, x0, y, z0).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z0).setColor(r, g, bl, a);
-
-        b.addVertex(pose, x1, y, z0).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z0).setColor(r, g, bl, a);
+        GlowLayout.get(layout).render(ms, bufferSource, orientation, SIZE, SIZE, false, r, g, b,
+                i -> (state & (1 << i)) != 0 ? 255 : 0);
     }
 
     @Override
