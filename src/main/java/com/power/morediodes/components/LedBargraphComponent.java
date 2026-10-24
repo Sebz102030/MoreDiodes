@@ -35,20 +35,20 @@ import org.patryk3211.powergrid.electricity.sim.special.PNJunctionWire;
 import java.util.List;
 
 /**
- * LED step indicator: a 10 LED bar graph with 20 pins (10 x 4 footprint), every LED independent.
+ * LED bargraph: a 10 LED bar graph with 20 pins (4 x 10 footprint, standing north-south), every LED independent.
  *
- * Default orientation: top row (y=0) anodes A1..A10, bottom row (y=3) cathodes C1..C10, left to right.
+ * Default orientation: east column (x=3) anodes A1..A10, west column (x=0) cathodes C1..C10, top to bottom.
  * LED n lights between anode n and cathode n. Node indices: 0..9 anodes, 10..19 cathodes.
  *
  * Every LED is its own red-LED style PN junction with its own thermal unit: it lights from the activation
- * voltage (barDiodeActivationVoltage config) and never burns at or below barDiodeVoltage; more voltage across
+ * voltage (barDiodeActivationVoltage config, default 1 V) and never burns at or below barDiodeVoltage; more voltage across
  * one LED burns just that LED. Brightness is quantised to 4 levels per LED and synced through the hidden
  * LEVELS property; burnt LEDs are the hidden BURNT bit mask. Creative players repair by sneak + right-click.
  * Colour is picked in the board editor like the Power Grid bulb (default red).
  *
- * Where each LED glows is NOT in the code: assets/morediodes/glow/led_step_indicator.json (resource-pack editable).
+ * Where each LED glows is NOT in the code: assets/morediodes/glow/led_bargraph.json (resource-pack editable).
  */
-public class LedStepIndicatorComponent extends OrientableComponent
+public class LedBargraphComponent extends OrientableComponent
         implements IRenderedComponent, IComponentGoggleInformation, IInteractableComponent {
 
     public static final int LEDS = 10;
@@ -56,8 +56,8 @@ public class LedStepIndicatorComponent extends OrientableComponent
     public static final int PIN_ANODE_0 = 0;
     public static final int PIN_CATHODE_0 = LEDS;
 
-    public static final int BASE_WIDTH = 10;
-    public static final int BASE_HEIGHT = 4;
+    public static final int BASE_WIDTH = 4;
+    public static final int BASE_HEIGHT = 10;
 
     /** Multiplier from the dye colour to the emissive LED colour (same as the matrices). */
     private static final float LED_BRIGHTEN = 1.45f;
@@ -66,15 +66,15 @@ public class LedStepIndicatorComponent extends OrientableComponent
     private static final double[] LEVEL_FRACTION = { 0.05D, 0.40D, 0.75D };
     private static final int[] LEVEL_ALPHA = { 0, 90, 180, 255 };
 
-    public static final EnumProperty<DyeColor> COLOR = new EnumProperty<DyeColor>(MoreDiodes.MODID, "bar_color",
-            DyeColor.class, DyeColor.values(), DyeColor.RED);
+    /** The same colour setting the LED matrices use (one colour for the whole component, default red). */
+    public static final EnumProperty<DyeColor> COLOR = LedMatrixComponent.COLOR;
 
     public static final IntProperty LEVELS = (IntProperty) new IntProperty(MoreDiodes.MODID, "bar_levels", 0,
             0, (1 << (2 * LEDS)) - 1).hidden().unsafe();
     public static final IntProperty BURNT = (IntProperty) new IntProperty(MoreDiodes.MODID, "bar_burnt", 0,
             0, ALL).hidden().unsafe();
 
-    public LedStepIndicatorComponent(ComponentFootprint footprint) {
+    public LedBargraphComponent(ComponentFootprint footprint) {
         super(footprint);
     }
 
@@ -221,7 +221,7 @@ public class LedStepIndicatorComponent extends OrientableComponent
         int g = Mth.clamp((int) (((dye >> 8) & 0xFF) * LED_BRIGHTEN), 0, 255);
         int b = Mth.clamp((int) ((dye & 0xFF) * LED_BRIGHTEN), 0, 255);
 
-        GlowLayout.get(GlowLayout.LED_STEP_INDICATOR).render(ms, bufferSource, placed.get(ORIENTATION),
+        GlowLayout.get(GlowLayout.LED_BARGRAPH).render(ms, bufferSource, placed.get(ORIENTATION),
                 BASE_WIDTH, BASE_HEIGHT, false, r, g, b,
                 i -> i < LEDS ? LEVEL_ALPHA[(levels >> (2 * i)) & 3] : 0);
     }
@@ -231,7 +231,7 @@ public class LedStepIndicatorComponent extends OrientableComponent
             boolean isPlayerSneaking) {
         int damaged = Integer.bitCount(placed.get(BURNT));
         ComponentLabels.addToTooltip(placed, tooltip);
-        ModLang.text("item.morediodes.led_step_indicator").forGoggles(tooltip);
+        ModLang.text("item.morediodes.led_bargraph").forGoggles(tooltip);
         ModLang.text("tooltip.morediodes.damaged_diodes", damaged, LEDS)
                 .style(damaged == 0 ? ChatFormatting.GREEN : ChatFormatting.RED).forGoggles(tooltip);
         if (damaged != 0 && ModLang.localPlayerIsCreative())

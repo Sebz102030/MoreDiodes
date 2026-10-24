@@ -24,9 +24,17 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_ANODE = ITEMS.registerSimpleItem("seven_segment_anode", new Item.Properties());
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_CATHODE = ITEMS.registerSimpleItem("seven_segment_cathode", new Item.Properties());
 
+    public static final DeferredHolder<Item, Item> LED_BARGRAPH = ITEMS.registerSimpleItem("led_bargraph", new Item.Properties());
+
+    //crafting items
+    public static final DeferredHolder<Item, Item> INCOMPLETE_BASE = HIDDEN_ITEMS.register("incomplete_diode_base", ()-> new IncompletePlaceholder(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> INCOMPLETE_BARGRAPH = HIDDEN_ITEMS.register("incomplete_led_bargraph", ()-> new IncompletePlaceholder(new Item.Properties()));
     public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX = HIDDEN_ITEMS.register("incomplete_matrix", ()-> new IncompletePlaceholder(new Item.Properties()));
 
-    public static final DeferredHolder<Item, Item> LED_STEP_INDICATOR = ITEMS.registerSimpleItem("led_step_indicator", new Item.Properties());
+    public static final DeferredHolder<Item, Item> FIVE_PIN_BANCH = ITEMS.registerSimpleItem("ten_pin_banch", new Item.Properties());
+    public static final DeferredHolder<Item, Item> MULTILED_BASE = ITEMS.registerSimpleItem("multi_light_base", new Item.Properties());
+    public static final DeferredHolder<Item, Item> UNCURED_BARGRAPH = ITEMS.registerSimpleItem("uncured_led_bargraph", new Item.Properties());
+
 
     private ModItems() {
     }

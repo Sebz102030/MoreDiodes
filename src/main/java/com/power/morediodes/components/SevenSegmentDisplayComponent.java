@@ -135,14 +135,14 @@ public class SevenSegmentDisplayComponent extends OrientableComponent
         // Both COM pins are one electrical node; tie them with a near-zero resistance.
         builder.connect(COM_TIE_RESISTANCE, com, builder.terminalNode(PIN_COM_EAST));
 
-        // Operating point from the config: segmentVoltage across the segment at
-        // segmentCurrentMilliamps.
-        // segmentVoltage is also the MAX voltage: the segment never burns at or below
-        // it.
-        double ratedVoltage = ConfigFile.SEGMENT_VOLTAGE.get();
+        // Operating point from the config: segmentActivationVoltage across the segment at
+        // segmentCurrentMilliamps. segmentVoltage is the MAX voltage: the segment never
+        // burns at or below it.
+        double activationVoltage = ConfigFile.SEGMENT_ACTIVATION_VOLTAGE.get();
+        double maxVoltage = Math.max(ConfigFile.SEGMENT_VOLTAGE.get(), activationVoltage);
         double ratedCurrent = ConfigFile.SEGMENT_CURRENT_MA.get() / 1000.0D;
-        double saturationCurrent = LedPhysics.saturationCurrent(ratedVoltage, ratedCurrent);
-        float burnPower = LedPhysics.burnPower(ratedVoltage, ratedCurrent, ratedVoltage);
+        double saturationCurrent = LedPhysics.saturationCurrent(activationVoltage, ratedCurrent);
+        float burnPower = LedPhysics.burnPower(activationVoltage, ratedCurrent, maxVoltage);
 
         int burnt = placed.get(BURNT);
         PNJunctionWire[] leds = new PNJunctionWire[SEGMENTS];

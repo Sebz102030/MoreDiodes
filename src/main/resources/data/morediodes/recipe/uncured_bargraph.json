@@ -1,0 +1,124 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "morediodes:multi_light_base"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "morediodes:uncured_led_bargraph",
+      "chance": 0.9,
+      "count": 1
+    },
+    {
+      "id": "morediodes:multi_light_base",
+      "chance": 0.1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:cutting",
+      "processing_time": 100,
+      "ingredients": [
+        {
+          "item": "morediodes:led_bargraph"
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_led_bargraph"
+        },
+        {
+          "tag": "c:plates/iron"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_led_bargraph"
+        },
+        {
+          "tag": "c:plates/zinc"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_led_bargraph"
+        },
+        {
+          "item": "morediodes:ten_pin_banch"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_led_bargraph"
+        },
+        {
+          "item": "morediodes:ten_pin_banch"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_led_bargraph"
+        },
+        {
+          "fluid": "morediodes:hardening_rasin",
+          "type": "fluid_stack",
+          "amount": 200
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_led_bargraph"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "morediodes:incomplete_led_bargraph"
+  }
+}

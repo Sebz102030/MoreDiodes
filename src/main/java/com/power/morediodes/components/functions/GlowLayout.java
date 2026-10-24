@@ -31,7 +31,7 @@ public final class GlowLayout {
     public static final ResourceLocation SEVEN_SEGMENT = id("seven_segment");
     public static final ResourceLocation LED_MATRIX = id("led_matrix");
     public static final ResourceLocation LED_MATRIX_ADVANCED = id("led_matrix_advanced");
-    public static final ResourceLocation LED_STEP_INDICATOR = id("led_step_indicator");
+    public static final ResourceLocation LED_BARGRAPH = id("led_bargraph");
 
     /** One lit part: a rectangle on the top of the body, in pixels. */
     public record Rect(float x0, float z0, float x1, float z1, float y) {
