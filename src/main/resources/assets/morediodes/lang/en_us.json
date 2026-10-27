@@ -148,6 +148,9 @@
   "item.morediodes.hardening_rasin_bucket": "bucket of hardening resin",
   "item.morediodes.ten_pin_banch": "10-pin banch",
   "item.morediodes.multi_light_base": "multi-light base",
+  "item.morediodes.uncured_led_bargraph":"uncured LED bargraph",
+  "item.morediodes.incomplete_led_bargraph":"incomplete LED bargraph",
+  "item.morediodes.incomplete_diode_base":"incomplete LED base",
 
   "item.morediodes.led_bargraph": "LED bargraph (10 LED bar)",
   "component.morediodes.led_bargraph.0": "Anode 1 (LED 1)",
