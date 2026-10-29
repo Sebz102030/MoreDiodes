@@ -30,10 +30,19 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> INCOMPLETE_BASE = HIDDEN_ITEMS.register("incomplete_diode_base", ()-> new IncompletePlaceholder(new Item.Properties()));
     public static final DeferredHolder<Item, Item> INCOMPLETE_BARGRAPH = HIDDEN_ITEMS.register("incomplete_led_bargraph", ()-> new IncompletePlaceholder(new Item.Properties()));
     public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX = HIDDEN_ITEMS.register("incomplete_matrix", ()-> new IncompletePlaceholder(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> INCOMPLETE_MATRIX_PART = HIDDEN_ITEMS.register("incomplete_matrix_part", ()-> new IncompletePlaceholder(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> INCOMPLETE_ADVANCED_MATRIX_CONTROLLER = HIDDEN_ITEMS.register("incomplete_advanced_matrix_controller", ()-> new IncompletePlaceholder(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> INCOMPLETE_SEVENSEGMENT = HIDDEN_ITEMS.register("incomplete_sevensegment", ()-> new IncompletePlaceholder(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FIVE_PIN_BANCH = ITEMS.registerSimpleItem("ten_pin_banch", new Item.Properties());
     public static final DeferredHolder<Item, Item> MULTILED_BASE = ITEMS.registerSimpleItem("multi_light_base", new Item.Properties());
     public static final DeferredHolder<Item, Item> UNCURED_BARGRAPH = ITEMS.registerSimpleItem("uncured_led_bargraph", new Item.Properties());
+    public static final DeferredHolder<Item, Item> UNCURED_ADVANCED_MATRIX = ITEMS.registerSimpleItem("uncured_advanced_matrix", new Item.Properties());
+    public static final DeferredHolder<Item, Item> UNCURED_MATRIX = ITEMS.registerSimpleItem("uncured_matrix",new Item.Properties());
+    public static final DeferredHolder<Item, Item> BAKED_PROCESOR = ITEMS.registerSimpleItem("baked_advanced_controller", new Item.Properties());
+    public static final DeferredHolder<Item, Item> CONTROLLER_ADVANCED = ITEMS.registerSimpleItem("undone_advanced_controller", new Item.Properties());
+    public static final DeferredHolder<Item, Item> UNCURED_SEVEN_SEGMENT_CATHODE = ITEMS.registerSimpleItem("uncured_seven_segment_cathode", new Item.Properties());
+    public static final DeferredHolder<Item, Item> UNCURED_SEVEN_SEGMENT_ANODE = ITEMS.registerSimpleItem("uncured_seven_segment_anode", new Item.Properties());
 
 
     private ModItems() {
