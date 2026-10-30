@@ -152,6 +152,17 @@
   "item.morediodes.incomplete_led_bargraph":"incomplete LED bargraph",
   "item.morediodes.incomplete_diode_base":"incomplete LED base",
 
+  "item.morediodes.incomplete_matrix":"incomplete matrix",
+  "item.morediodes.incomplete_matrix_part":"incomplete parcial matrix",
+  "item.morediodes.incomplete_advanced_matrix_controller":"incomplete advanced matrix controller",
+  "item.morediodes.incomplete_sevensegment":"incomplete seven segment",
+  "item.morediodes.uncured_advanced_matrix":"uncured advanced matrix",
+  "item.morediodes.uncured_matrix":"uncured matrix",
+  "item.morediodes.baked_advanced_controller":"baked advanced controller",
+  "item.morediodes.undone_advanced_controller":"undone advanced controller",
+  "item.morediodes.uncured_seven_segment_cathode":"uncured seven segment display (cathode)",
+  "item.morediodes.uncured_seven_segment_anode":"uncured seven segment dispaly (anode)",
+
   "item.morediodes.led_bargraph": "LED bargraph (10 LED bar)",
   "component.morediodes.led_bargraph.0": "Anode 1 (LED 1)",
   "component.morediodes.led_bargraph.0.short": "a1",
