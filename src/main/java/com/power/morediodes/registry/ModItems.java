@@ -24,6 +24,10 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_ANODE = ITEMS.registerSimpleItem("seven_segment_anode", new Item.Properties());
     public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_CATHODE = ITEMS.registerSimpleItem("seven_segment_cathode", new Item.Properties());
 
+    public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_DECODER_CATHODE = ITEMS.registerSimpleItem("seven_segment_decoder_cathode", new Item.Properties());
+    public static final DeferredHolder<Item, Item> SEVEN_SEGMENT_DECODER_ANODE = ITEMS.registerSimpleItem("seven_segment_decoder_anode", new Item.Properties());
+
+
     public static final DeferredHolder<Item, Item> LED_BARGRAPH = ITEMS.registerSimpleItem("led_bargraph", new Item.Properties());
 
     //crafting items
@@ -39,6 +43,7 @@ public final class ModItems {
     public static final DeferredHolder<Item, Item> UNCURED_BARGRAPH = ITEMS.registerSimpleItem("uncured_led_bargraph", new Item.Properties());
     public static final DeferredHolder<Item, Item> UNCURED_ADVANCED_MATRIX = ITEMS.registerSimpleItem("uncured_advanced_matrix", new Item.Properties());
     public static final DeferredHolder<Item, Item> UNCURED_MATRIX = ITEMS.registerSimpleItem("uncured_matrix",new Item.Properties());
+    public static final DeferredHolder<Item, Item> MATRIX_PART = ITEMS.registerSimpleItem("matrix_part", new Item.Properties());
     public static final DeferredHolder<Item, Item> BAKED_PROCESOR = ITEMS.registerSimpleItem("baked_advanced_controller", new Item.Properties());
     public static final DeferredHolder<Item, Item> CONTROLLER_ADVANCED = ITEMS.registerSimpleItem("undone_advanced_controller", new Item.Properties());
     public static final DeferredHolder<Item, Item> UNCURED_SEVEN_SEGMENT_CATHODE = ITEMS.registerSimpleItem("uncured_seven_segment_cathode", new Item.Properties());

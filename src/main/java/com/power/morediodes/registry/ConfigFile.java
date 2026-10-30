@@ -22,6 +22,9 @@ public final class ConfigFile {
     public static final ModConfigSpec.DoubleValue BAR_DIODE_VOLTAGE;
     public static final ModConfigSpec.DoubleValue BAR_DIODE_CURRENT_MA;
 
+    // --- 4-bit to 7-segment decoder ---
+    public static final ModConfigSpec.DoubleValue DECODER_OUTPUT_CURRENT_MA;
+
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -107,6 +110,18 @@ public final class ConfigFile {
                         " Default: 20.0",
                         " Range: 1.0 ~ 500.0")
                 .defineInRange("barDiodeCurrentMilliamps", 20.0D, 1.0D, 500.0D);
+
+        builder.pop();
+        builder.comment("", "4-bit to 7-segment decoder settings")
+                .push("sevenSegmentDecoder");
+
+        DECODER_OUTPUT_CURRENT_MA = builder
+                .comment("Current (mA) every lit output of the decoder aims to deliver into a 7-segment display.",
+                        "The output resistance is set from the supply voltage and segmentActivationVoltage,",
+                        "so a segment gets about this current.",
+                        " Default: 20.0",
+                        " Range: 1.0 ~ 100.0")
+                .defineInRange("decoderOutputCurrentMilliamps", 20.0D, 1.0D, 100.0D);
 
         builder.pop();
         SPEC = builder.build();

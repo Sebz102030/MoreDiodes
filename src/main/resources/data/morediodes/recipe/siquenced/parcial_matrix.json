@@ -1,0 +1,86 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "morediodes:multi_light_base"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "morediodes:matrix_part",
+      "chance": 1,
+      "count": 1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "tag": "c:plates/copper"
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "tag": "c:plates/zinc"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "item": "morediodes:ten_pin_banch"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "tag": "morediodes:cutters"
+        }
+      ],
+      "keep_held_item": true,
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "morediodes:incomplete_matrix_part"
+  }
+}
