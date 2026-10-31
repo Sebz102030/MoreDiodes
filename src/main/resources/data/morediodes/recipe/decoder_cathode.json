@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "powergrid:zinc_sheet"
+    },
+    {
+      "item": "powergrid:capacitor"
+    },
+    {
+      "item": "powergrid:bjt_npn"
+    },
+    {
+      "item": "powergrid:bjt_npn"
+    },
+    {
+      "item": "powergrid:bjt_npn"
+    },
+    {
+      "item": "powergrid:bjt_npn"
+    }
+  ],
+  "result": {
+    "id": "morediodes:seven_segment_decoder_cathode"
+  }
+}

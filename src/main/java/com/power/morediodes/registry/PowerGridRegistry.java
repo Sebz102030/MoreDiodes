@@ -3,8 +3,10 @@ package com.power.morediodes.registry;
 import com.power.morediodes.components.ComponentDiodeWhite;
 import com.power.morediodes.components.ComponentZenerDiode;
 import com.power.morediodes.components.SevenSegmentDisplayComponent;
+import com.power.morediodes.components.LedBargraphComponent;
 import com.power.morediodes.components.SimpleLedMatrixComponent;
 import com.power.morediodes.components.LedMatrixComponent;
+import com.power.morediodes.components.SevenSegmentDecoderComponent;
 import com.power.morediodes.MoreDiodes;
 
 import org.patryk3211.powergrid.circuits.schematic.ComponentFootprint;
@@ -14,7 +16,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
-import net.minecraft.world.item.DyeColor;
 
 @EventBusSubscriber(modid = MoreDiodes.MODID)
 class PowerGridRegistry {
@@ -27,8 +28,12 @@ class PowerGridRegistry {
 
     public static final ResourceLocation LED_MATRIX_ID = id("led_matrix");
     public static final ResourceLocation LED_MATRIX_ADVANCED_ID = id("led_matrix_advanced");
+    public static final ResourceLocation LED_BARGRAPH_ID = id("led_bargraph");
     public static final ResourceLocation SEVEN_SEGMENT_ANODE_ID = id("seven_segment_anode");
     public static final ResourceLocation SEVEN_SEGMENT_CATHODE_ID = id("seven_segment_cathode");
+
+    public static final ResourceLocation SEVEN_SEGMENT_DECODER_CATHODE_ID = id("seven_segment_decoder_cathode");
+    public static final ResourceLocation SEVEN_SEGMENT_DECODER_ANODE_ID = id("seven_segment_decoder_anode");
 
 
     private static ResourceLocation id(String path) {
@@ -100,6 +105,33 @@ class PowerGridRegistry {
         return new SimpleLedMatrixComponent(builder.withItem().withOutline().build());
     }
 
+    private static LedBargraphComponent buildLedBargraph() {
+        String base = "component." + MoreDiodes.MODID + ".led_bargraph";
+        var builder = new ComponentFootprint.Builder(LedBargraphComponent.BASE_WIDTH,
+                LedBargraphComponent.BASE_HEIGHT, base, null);
+        for (int i = 0; i < LedBargraphComponent.LEDS; i++) {
+            builder.addPad(3, i, LedBargraphComponent.PIN_ANODE_0 + i, "A" + (i + 1), "a" + (i + 1));
+            builder.addPad(0, i, LedBargraphComponent.PIN_CATHODE_0 + i, "C" + (i + 1), "c" + (i + 1));
+        }
+        return new LedBargraphComponent(builder.withItem().withOutline().build());
+    }
+
+    /** 7 x 3: bottom row outputs A..G; top row VCC, GND, gap, D0..D3. */
+    private static SevenSegmentDecoderComponent buildSevenSegmentDecoder(String idPath, boolean commonAnode) {
+        String base = "component." + MoreDiodes.MODID + "." + idPath;
+        var builder = new ComponentFootprint.Builder(SevenSegmentDecoderComponent.BASE_WIDTH,
+                SevenSegmentDecoderComponent.BASE_HEIGHT, base, null);
+        String names = "ABCDEFG";
+        for (int i = 0; i < SevenSegmentDecoderComponent.OUTPUTS; i++)
+            builder.addPad(i, 2, SevenSegmentDecoderComponent.PIN_OUT_0 + i, "" + names.charAt(i),
+                    "" + Character.toLowerCase(names.charAt(i)));
+        builder.addPad(0, 0, SevenSegmentDecoderComponent.PIN_VCC, "VCC", "vcc");
+        builder.addPad(1, 0, SevenSegmentDecoderComponent.PIN_GND, "GND", "gnd");
+        for (int i = 0; i < SevenSegmentDecoderComponent.INPUTS; i++)
+            builder.addPad(3 + i, 0, SevenSegmentDecoderComponent.PIN_IN_0 + i, "D" + i, "d" + i);
+        return new SevenSegmentDecoderComponent(builder.withItem().withOutline().build(), commonAnode);
+    }
+
     @SubscribeEvent
     public static void onRegister(RegisterEvent event) {
         if (event.getRegistryKey().equals(ComponentRegistry.REGISTRY_KEY)){
@@ -114,7 +146,14 @@ class PowerGridRegistry {
             event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_ANODE_ID, PowerGridRegistry::buildSevenSegmentDisplayAnode);
             event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ID, PowerGridRegistry::buildSimpleLedMatrix);
             event.register(ComponentRegistry.REGISTRY_KEY, LED_MATRIX_ADVANCED_ID, PowerGridRegistry::buildLedMatrix);
-            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 10);
+            event.register(ComponentRegistry.REGISTRY_KEY, LED_BARGRAPH_ID, PowerGridRegistry::buildLedBargraph);
+
+            event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_DECODER_CATHODE_ID,
+                    () -> buildSevenSegmentDecoder("seven_segment_decoder_cathode", false));
+            event.register(ComponentRegistry.REGISTRY_KEY, SEVEN_SEGMENT_DECODER_ANODE_ID,
+                    () -> buildSevenSegmentDecoder("seven_segment_decoder_anode", true));
+
+            MoreDiodes.LOGGER.info("Registered {} custom powergrid components", 11);
         }
     }
 }

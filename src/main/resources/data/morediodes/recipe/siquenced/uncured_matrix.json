@@ -1,0 +1,58 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "morediodes:matrix_part"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "morediodes:uncured_matrix",
+      "chance": 0.9,
+      "count": 1
+    },
+    {
+      "id": "morediodes:matrix_part",
+      "chance": 0.1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "item": "powergrid:wire"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_matrix_part"
+        },
+        {
+          "fluid": "morediodes:hardening_rasin",
+          "type": "fluid_stack",
+          "amount": 200
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_matrix_part"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "morediodes:incomplete_matrix_part"
+  }
+}

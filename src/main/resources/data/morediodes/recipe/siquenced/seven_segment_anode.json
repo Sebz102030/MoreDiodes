@@ -1,0 +1,107 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "morediodes:multi_light_base"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "morediodes:uncured_seven_segment_anode",
+      "chance": 0.95,
+      "count": 1
+    },
+    {
+      "id": "morediodes:multi_light_base",
+      "chance": 0.05,
+      "count": 2
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_sevensegment"
+        },
+        {
+          "item": "create:copper_sheet"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_sevensegment"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_sevensegment"
+        },
+        {
+          "item": "morediodes:multi_light_base"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_sevensegment"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_sevensegment"
+        },
+        {
+          "item": "powergrid:zinc_sheet"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_sevensegment"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_sevensegment"
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_sevensegment",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_sevensegment"
+        },
+        {
+          "fluid": "morediodes:hardening_rasin",
+          "type": "fluid_stack",
+          "amount": 300
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_sevensegment"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "morediodes:incomplete_sevensegment"
+  }
+}

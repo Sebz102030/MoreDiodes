@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "morediodes:item/uncured_seven_segment_display_anode"
+  }
+}

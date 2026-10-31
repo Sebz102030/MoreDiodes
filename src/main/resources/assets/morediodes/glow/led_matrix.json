@@ -1,0 +1,282 @@
+{
+  "comment": "Glow layout. Positions are in pixels (16 = 1 block) in the component's default orientation: x = east, z = south, origin = north-west corner of the footprint. 'from'/'to' are [x, z] on the top of the body. 'y' = height of the glow plane in pixels (element 'y' overrides it), 'halo' = soft border width in pixels (0 = none). The ORDER of 'elements' matters: it is the segment / diode index used by the mod.",
+  "y": 2.03,
+  "halo": 0.25,
+  "elements": [
+    {
+      "name": "r1c1",
+      "from": [
+        0.25,
+        0.25
+      ],
+      "to": [
+        0.75,
+        0.75
+      ]
+    },
+    {
+      "name": "r1c2",
+      "from": [
+        1.25,
+        0.25
+      ],
+      "to": [
+        1.75,
+        0.75
+      ]
+    },
+    {
+      "name": "r1c3",
+      "from": [
+        2.25,
+        0.25
+      ],
+      "to": [
+        2.75,
+        0.75
+      ]
+    },
+    {
+      "name": "r1c4",
+      "from": [
+        3.25,
+        0.25
+      ],
+      "to": [
+        3.75,
+        0.75
+      ]
+    },
+    {
+      "name": "r1c5",
+      "from": [
+        4.25,
+        0.25
+      ],
+      "to": [
+        4.75,
+        0.75
+      ]
+    },
+    {
+      "name": "r2c1",
+      "from": [
+        0.25,
+        1.25
+      ],
+      "to": [
+        0.75,
+        1.75
+      ]
+    },
+    {
+      "name": "r2c2",
+      "from": [
+        1.25,
+        1.25
+      ],
+      "to": [
+        1.75,
+        1.75
+      ]
+    },
+    {
+      "name": "r2c3",
+      "from": [
+        2.25,
+        1.25
+      ],
+      "to": [
+        2.75,
+        1.75
+      ]
+    },
+    {
+      "name": "r2c4",
+      "from": [
+        3.25,
+        1.25
+      ],
+      "to": [
+        3.75,
+        1.75
+      ]
+    },
+    {
+      "name": "r2c5",
+      "from": [
+        4.25,
+        1.25
+      ],
+      "to": [
+        4.75,
+        1.75
+      ]
+    },
+    {
+      "name": "r3c1",
+      "from": [
+        0.25,
+        2.25
+      ],
+      "to": [
+        0.75,
+        2.75
+      ]
+    },
+    {
+      "name": "r3c2",
+      "from": [
+        1.25,
+        2.25
+      ],
+      "to": [
+        1.75,
+        2.75
+      ]
+    },
+    {
+      "name": "r3c3",
+      "from": [
+        2.25,
+        2.25
+      ],
+      "to": [
+        2.75,
+        2.75
+      ]
+    },
+    {
+      "name": "r3c4",
+      "from": [
+        3.25,
+        2.25
+      ],
+      "to": [
+        3.75,
+        2.75
+      ]
+    },
+    {
+      "name": "r3c5",
+      "from": [
+        4.25,
+        2.25
+      ],
+      "to": [
+        4.75,
+        2.75
+      ]
+    },
+    {
+      "name": "r4c1",
+      "from": [
+        0.25,
+        3.25
+      ],
+      "to": [
+        0.75,
+        3.75
+      ]
+    },
+    {
+      "name": "r4c2",
+      "from": [
+        1.25,
+        3.25
+      ],
+      "to": [
+        1.75,
+        3.75
+      ]
+    },
+    {
+      "name": "r4c3",
+      "from": [
+        2.25,
+        3.25
+      ],
+      "to": [
+        2.75,
+        3.75
+      ]
+    },
+    {
+      "name": "r4c4",
+      "from": [
+        3.25,
+        3.25
+      ],
+      "to": [
+        3.75,
+        3.75
+      ]
+    },
+    {
+      "name": "r4c5",
+      "from": [
+        4.25,
+        3.25
+      ],
+      "to": [
+        4.75,
+        3.75
+      ]
+    },
+    {
+      "name": "r5c1",
+      "from": [
+        0.25,
+        4.25
+      ],
+      "to": [
+        0.75,
+        4.75
+      ]
+    },
+    {
+      "name": "r5c2",
+      "from": [
+        1.25,
+        4.25
+      ],
+      "to": [
+        1.75,
+        4.75
+      ]
+    },
+    {
+      "name": "r5c3",
+      "from": [
+        2.25,
+        4.25
+      ],
+      "to": [
+        2.75,
+        4.75
+      ]
+    },
+    {
+      "name": "r5c4",
+      "from": [
+        3.25,
+        4.25
+      ],
+      "to": [
+        3.75,
+        4.75
+      ]
+    },
+    {
+      "name": "r5c5",
+      "from": [
+        4.25,
+        4.25
+      ],
+      "to": [
+        4.75,
+        4.75
+      ]
+    }
+  ]
+}

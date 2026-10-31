@@ -1,0 +1,98 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "c:plates/iron"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "morediodes:multi_light_base",
+      "chance": 0.92,
+      "count": 1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "tag": "c:plates/iron"
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_diode_base",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "create:cutting",
+      "processing_time": 20,
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_diode_base"
+        }
+      ],
+      "results": [
+        {
+          "id": "morediodes:incomplete_diode_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_diode_base"
+        },
+        {
+          "tag": "c:glass_panes"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_diode_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_diode_base"
+        },
+        {
+          "tag": "c:plates/iron"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:incomplete_diode_base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "morediodes:incomplete_diode_base"
+        },
+        {
+          "tag": "c:plates/iron"
+        }
+      ],
+      "keep_held_item": false,
+      "results": [
+        {
+          "id": "morediodes:multi_light_base"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "morediodes:incomplete_diode_base"
+  }
+}

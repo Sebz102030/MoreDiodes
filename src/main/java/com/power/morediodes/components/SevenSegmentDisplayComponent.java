@@ -2,15 +2,14 @@ package com.power.morediodes.components;
 
 import com.google.common.collect.ImmutableCollection;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.power.morediodes.registry.ConfigFile;
 import com.power.morediodes.MoreDiodes;
+import com.power.morediodes.components.functions.GlowLayout;
 import com.power.morediodes.components.functions.LedPhysics;
 import com.power.morediodes.components.functions.ModLang;
 import com.power.morediodes.components.functions.RepairSupport;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
@@ -18,15 +17,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.patryk3211.powergrid.circuits.circuitboard.CircuitBoardBlockEntity;
 import org.patryk3211.powergrid.circuits.circuitboard.ComponentCircuitBuilder;
 import org.patryk3211.powergrid.circuits.components.IComponentGoggleInformation;
 import org.patryk3211.powergrid.circuits.components.IInteractableComponent;
 import org.patryk3211.powergrid.circuits.components.IRenderedComponent;
 import org.patryk3211.powergrid.circuits.components.OrientableComponent;
-import org.patryk3211.powergrid.circuits.components.properties.Orientation;
 import org.patryk3211.powergrid.circuits.components.properties.ComponentProperty;
 import org.patryk3211.powergrid.circuits.components.properties.IntProperty;
 import org.patryk3211.powergrid.circuits.schematic.ComponentFootprint;
@@ -47,7 +43,8 @@ import java.util.List;
  * top row, left to right: G F COM A B
  * bottom row, left to right: E D COM C DP
  * The footprint and the baked model are rotated by Power Grid itself; the
- * glowing segment overlay in {@link #render} applies the same rotation.
+ * glowing segment overlay ({@link GlowLayout}, positions in
+ * assets/morediodes/glow/seven_segment.json) applies the same rotation.
  *
  * Node indices: 0..6 = segments A..G, 7 = DP, 8 and 9 = the two COM pins,
  * tied together internally.
@@ -104,21 +101,6 @@ public class SevenSegmentDisplayComponent extends OrientableComponent
     private static final int[] LEVEL_ALPHA = { 0, 90, 180, 255 };
 
     private static final float COM_TIE_RESISTANCE = 0.001f;
-    /**
-     * Top-face pixel rectangles (inclusive col0, col1, row0, row1; 2 px per board
-     * cell), same layout as the texture.
-     */
-    private static final int[][] SEGMENT_PIXELS = {
-            { 3, 3, 3, 6 }, // A
-            { 3, 5, 2, 2 }, // B
-            { 7, 9, 2, 2 }, // C
-            { 9, 9, 3, 6 }, // D
-            { 7, 9, 7, 7 }, // E
-            { 3, 5, 7, 7 }, // F
-            { 6, 6, 3, 6 }, // G
-            { 9, 9, 0, 0 }, // DP
-    };
-
     public static final IntProperty LEVELS = (IntProperty) new IntProperty(MoreDiodes.MODID, "segment_levels", 0,
             0, 0xFFFF).hidden().unsafe();
     public static final IntProperty BURNT = (IntProperty) new IntProperty(MoreDiodes.MODID, "segment_burnt", 0, 0,
@@ -153,14 +135,14 @@ public class SevenSegmentDisplayComponent extends OrientableComponent
         // Both COM pins are one electrical node; tie them with a near-zero resistance.
         builder.connect(COM_TIE_RESISTANCE, com, builder.terminalNode(PIN_COM_EAST));
 
-        // Operating point from the config: segmentVoltage across the segment at
-        // segmentCurrentMilliamps.
-        // segmentVoltage is also the MAX voltage: the segment never burns at or below
-        // it.
-        double ratedVoltage = ConfigFile.SEGMENT_VOLTAGE.get();
+        // Operating point from the config: segmentActivationVoltage across the segment at
+        // segmentCurrentMilliamps. segmentVoltage is the MAX voltage: the segment never
+        // burns at or below it.
+        double activationVoltage = ConfigFile.SEGMENT_ACTIVATION_VOLTAGE.get();
+        double maxVoltage = Math.max(ConfigFile.SEGMENT_VOLTAGE.get(), activationVoltage);
         double ratedCurrent = ConfigFile.SEGMENT_CURRENT_MA.get() / 1000.0D;
-        double saturationCurrent = LedPhysics.saturationCurrent(ratedVoltage, ratedCurrent);
-        float burnPower = LedPhysics.burnPower(ratedVoltage, ratedCurrent, ratedVoltage);
+        double saturationCurrent = LedPhysics.saturationCurrent(activationVoltage, ratedCurrent);
+        float burnPower = LedPhysics.burnPower(activationVoltage, ratedCurrent, maxVoltage);
 
         int burnt = placed.get(BURNT);
         PNJunctionWire[] leds = new PNJunctionWire[SEGMENTS];
@@ -334,64 +316,10 @@ public class SevenSegmentDisplayComponent extends OrientableComponent
         if (levels == 0)
             return;
 
-        VertexConsumer buffer = bufferSource.getBuffer(RenderType.lightning());
-
-        // Same transform Power Grid applies to the baked model: rotate about the
-        // component's
-        // origin by orientation * 90 degrees, then shift it back into its (rotated)
-        // footprint.
-        Orientation orientation = placed.get(ORIENTATION);
-        ms.pushPose();
-        switch (orientation) {
-            case DOWN -> ms.translate(BASE_HEIGHT / 16f, 0, 0);
-            case LEFT -> ms.translate(BASE_WIDTH / 16f, 0, BASE_HEIGHT / 16f);
-            case UP -> ms.translate(0, 0, BASE_WIDTH / 16f);
-            default -> {
-            }
-        }
-        ms.mulPose(new Quaternionf().rotationY(orientation.ordinal() * (float) Math.PI * 0.5f));
-        Matrix4f pose = ms.last().pose();
-        // Just above the body's top face (2 px high), emissive and additive.
-        float y = 2.03f / 16f;
-        for (int i = 0; i < SEGMENTS; i++) {
-            int level = (levels >> (2 * i)) & 3;
-            if (level == 0)
-                continue;
-            int alpha = LEVEL_ALPHA[level];
-            int[] px = SEGMENT_PIXELS[i];
-            float x0 = px[0] / 32f, x1 = (px[1] + 1) / 32f;
-            float z0 = px[2] / 32f, z1 = (px[3] + 1) / 32f;
-            // The segment table is in the texture's 7 x 5 layout; the model is that layout
-            // turned
-            // 90 degrees (x' = 5/16 - z, z' = x, nothing mirrored).
-            float nx0 = BASE_WIDTH / 16f - z1, nx1 = BASE_WIDTH / 16f - z0;
-            z0 = x0;
-            z1 = x1;
-            x0 = nx0;
-            x1 = nx1;
-            quad(buffer, pose, x0, x1, y, z0, z1, 255, 45, 30, alpha);
-            // Soft halo around the lit segment.
-            float h = 1 / 64f;
-            quad(buffer, pose, x0 - h, x1 + h, y - 0.0005f, z0 - h, z1 + h, 255, 20, 10, alpha / 4);
-        }
-        ms.popPose();
-    }
-
-    /**
-     * A flat quad facing up, emitted with both windings so it shows regardless of
-     * culling.
-     */
-    private static void quad(VertexConsumer b, Matrix4f pose, float x0, float x1, float y, float z0, float z1,
-            int r, int g, int bl, int a) {
-        b.addVertex(pose, x0, y, z0).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z0).setColor(r, g, bl, a);
-
-        b.addVertex(pose, x1, y, z0).setColor(r, g, bl, a);
-        b.addVertex(pose, x1, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z1).setColor(r, g, bl, a);
-        b.addVertex(pose, x0, y, z0).setColor(r, g, bl, a);
+        // Where each segment glows comes from assets/morediodes/glow/seven_segment.json (resource-pack editable).
+        GlowLayout.get(GlowLayout.SEVEN_SEGMENT).render(ms, bufferSource, placed.get(ORIENTATION),
+                BASE_WIDTH, BASE_HEIGHT, true, 255, 45, 30,
+                i -> i < SEGMENTS ? LEVEL_ALPHA[(levels >> (2 * i)) & 3] : 0);
     }
 
     @Override

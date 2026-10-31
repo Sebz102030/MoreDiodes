@@ -46,3 +46,10 @@ this mod adds diodes to give more ways to use circuit board
     ordering="AFTER"
     side="BOTH"
 
+[[dependencies.${mod_id}]]
+    modId="create"
+    type="required"
+    versionRange="[6.0.9,)"
+    ordering="AFTER"
+    side="BOTH"
+

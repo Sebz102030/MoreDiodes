@@ -1,0 +1,21 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball",
+      "count": 3
+    },
+    {
+      "fluid": "minecraft:water",
+      "type": "fluid_stack",
+      "amount": 500
+    }
+  ],
+  "results": [
+    {
+      "amount": 400,
+      "id": "morediodes:hardening_rasin"
+    }
+  ]
+}

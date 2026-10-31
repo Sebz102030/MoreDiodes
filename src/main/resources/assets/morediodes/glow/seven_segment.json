@@ -1,0 +1,100 @@
+{
+  "comment": "Glow layout. Positions are in pixels (16 = 1 block) in the component's default orientation: x = east, z = south, origin = north-west corner of the footprint. 'from'/'to' are [x, z] on the top of the body. 'y' = height of the glow plane in pixels (element 'y' overrides it), 'halo' = soft border width in pixels (0 = none). The ORDER of 'elements' matters: it is the segment / diode index used by the mod.",
+  "y": 2.03,
+  "halo": 0.25,
+  "color": [
+    255,
+    45,
+    30
+  ],
+  "elements": [
+    {
+      "name": "A",
+      "from": [
+        1.5,
+        1.5
+      ],
+      "to": [
+        3.5,
+        2.0
+      ]
+    },
+    {
+      "name": "B",
+      "from": [
+        3.5,
+        1.5
+      ],
+      "to": [
+        4.0,
+        3.0
+      ]
+    },
+    {
+      "name": "C",
+      "from": [
+        3.5,
+        3.5
+      ],
+      "to": [
+        4.0,
+        5.0
+      ]
+    },
+    {
+      "name": "D",
+      "from": [
+        1.5,
+        4.5
+      ],
+      "to": [
+        3.5,
+        5.0
+      ]
+    },
+    {
+      "name": "E",
+      "from": [
+        1.0,
+        3.5
+      ],
+      "to": [
+        1.5,
+        5.0
+      ]
+    },
+    {
+      "name": "F",
+      "from": [
+        1.0,
+        1.5
+      ],
+      "to": [
+        1.5,
+        3.0
+      ]
+    },
+    {
+      "name": "G",
+      "from": [
+        1.5,
+        3.0
+      ],
+      "to": [
+        3.5,
+        3.5
+      ]
+    },
+    {
+      "name": "DP",
+      "from": [
+        4.5,
+        4.5
+      ],
+      "to": [
+        5.0,
+        5.0
+      ]
+    }
+  ]
+}

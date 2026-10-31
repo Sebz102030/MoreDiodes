@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "powergrid:pins"
+    },
+    {
+      "item": "powergrid:pins"
+    },
+    {
+      "item": "powergrid:pins"
+    },
+    {
+      "item": "powergrid:pins"
+    },
+    {
+      "item": "powergrid:pins"
+    }
+  ],
+  "result": {
+    "id": "morediodes:ten_pin_banch",
+    "count": 1
+  }
+}
