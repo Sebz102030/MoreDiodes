@@ -4,17 +4,17 @@
   "ingredients": [
     {
       "item": "minecraft:slime_ball",
-      "count": 2
+      "count": 3
     },
     {
       "fluid": "minecraft:water",
       "type": "fluid_stack",
-      "amount": 250
+      "amount": 500
     }
   ],
   "results": [
     {
-      "amount": 200,
+      "amount": 400,
       "id": "morediodes:hardening_rasin"
     }
   ]
